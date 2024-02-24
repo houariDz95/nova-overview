@@ -12,7 +12,7 @@ export const DataTable = ({data}) => {
                 <h4 className="flex justify-end">Edit</h4>
             </div>
             {data.map(item => (
-                <div className="grid grid-cols-5 py-2 border-b text-sm">
+                <div className="grid grid-cols-5 py-2 border-b text-sm" key={item._id}>
                     <h4 className="flex justify-start">{item.title}</h4>
                     <h4 className="flex justify-center relative">
                         {formatter.format(item.buyPrice)}
