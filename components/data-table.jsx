@@ -14,9 +14,9 @@ export const DataTable = ({data}) => {
             {data.map(item => (
                 <div className="grid grid-cols-5 py-2 border-b text-sm" key={item._id}>
                     <h4 className="flex justify-start">{item.title}</h4>
-                    <h4 className="flex justify-center gap-2">
+                    <h4 className="flex justify-center w-full gap-2">
                         {formatter.format(item.buyPrice)}
-                        {item.isNotPayed && <span className="text-[8px] text-white bg-accentSoft dark:bg-accentDark px-1 rounded-md shadow-md">Not Payed</span>}
+                        {item.isNotPayed && <span className="text-white bg-accentSoft dark:bg-accentDark text-[8px] px-1 rounded-md flex items-center justify-center dark:text-secondary">Not Payed</span>}
                     </h4>
                     <h4 className="flex justify-center relative">
                         {formatter.format(item.sellPrice)}
