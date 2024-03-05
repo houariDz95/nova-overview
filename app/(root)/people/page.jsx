@@ -2,7 +2,7 @@ import { Trash, Weight } from "lucide-react";
 import { PeopleClient } from "./components/people-client";
 import { getPeople } from "@/lib/actions";
 import { Gabarito } from "next/font/google";
-import { cn } from "@/lib/utils";
+import { cn, formatter } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { DeleteItem } from "./components/delete-item";
 
@@ -11,6 +11,11 @@ const gabarito = Gabarito({subsets: ['latin'], weight: "500"})
 const People = async () => {
     const people = await getPeople()
 
+    const buyProductSumsPerPerson = people.map((person) => {
+      const personSum = person.unpaidProducts.reduce((sum, product) => sum + product.sellPrice, 0);
+      return { personName: person.name, buyProductSum: personSum };
+    });
+    
 
   return (
     <div className="flex flex-col mb-10">
@@ -26,6 +31,7 @@ const People = async () => {
               <div className="mt-2">
                 <h4 className="text-lg mb-2 text-center border-b w-full py-1 border-accentSoft dark:border-accentDark">Unpaid Products</h4>
                 {person.unpaidProducts.length ? (
+                  <>
                   <ul className="list-disc ml-4  p-3">
                     {person.unpaidProducts.map(product => (
                       <li key={product._id} className="flex w-full items-center justify-between text-sm">
@@ -34,6 +40,8 @@ const People = async () => {
                       </li>
                     ))}
                   </ul>
+                  <span className="text-sm text-center py-2 px-3 text-accentSoft dark:text-accentDark">{formatter.format(person.unpaidProducts.reduce((sum, product) => sum + product.sellPrice, 0))}</span>
+                  </>
                 ) : <p className="italic text-sm py-1 w-fit rounded-sm bg-slate-300 dark:bg-neutral-600 px-1">No unpaid products</p>}
               </div>
               <div className="mt-4">
